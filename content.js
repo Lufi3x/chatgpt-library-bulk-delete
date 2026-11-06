@@ -1,5 +1,5 @@
 const LIBRARY_API = '/backend-api/files/library';
-const BATCH_SIZE = 50;
+const BATCH_SIZE = 25; // delete-batch rejects more than 25 files with HTTP 422
 const PAUSE_MS = 1000;
 const MAX_RETRIES = 5;
 

@@ -32,11 +32,11 @@ function mockFetch(handler) {
   assert.strictEqual(selectItems(mixed, '2026-06-15').length, 0);
   assert.strictEqual(selectItems(mixed, '2026-06-17').length, 1);
 
-  // Batches of 50 with exactly the request shape ChatGPT's own UI sends.
+  // Batches of 25 (server maximum) with exactly the request shape ChatGPT's own UI sends.
   const many = Array.from({ length: 120 }, (_, n) => item(n));
   calls = mockFetch((_, body) => json({ success: true, files: body.files.map((f) => ({ library_file_id: f.library_file_id, success: true })) }));
   assert.deepStrictEqual(await trashItems(many, { pause: 0 }), { deleted: 120, failed: 0 });
-  assert.deepStrictEqual(calls.map((c) => c.body.files.length), [50, 50, 20]);
+  assert.deepStrictEqual(calls.map((c) => c.body.files.length), [25, 25, 25, 25, 20]);
   assert.strictEqual(calls[0].url, '/backend-api/files/library/files/delete-batch');
   assert.deepStrictEqual(calls[0].body.files[0], { library_file_id: 'lib0', file_id: 'file0', parent_directory_id: 'dir', file_name: '0.png' });
 
@@ -59,7 +59,7 @@ function mockFetch(handler) {
   // Stop takes effect between batches.
   let stop = false;
   calls = mockFetch((_, body) => { stop = true; return json({ files: body.files.map(() => ({ success: true })) }); });
-  assert.deepStrictEqual(await trashItems(many, { pause: 0, shouldStop: () => stop }), { deleted: 50, failed: 0 });
+  assert.deepStrictEqual(await trashItems(many, { pause: 0, shouldStop: () => stop }), { deleted: 25, failed: 0 });
   assert.strictEqual(calls.length, 1);
 
   assert.strictEqual(formatSize(1024 ** 3 * 1.5), '1.50 GB');
