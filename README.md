@@ -1,12 +1,23 @@
 # Bulk Delete for ChatGPT Library
 
-ChatGPT artık depolama sınırı uyguluyor ama Kitaplık'ta "tümünü seç" yok; binlerce görseli tek tek işaretlemen gerekiyor. Bu eklenti Kitaplık sayfasına küçük bir panel ekler ve görselleri toplu olarak Çöp Kutusu'na taşır.
+ChatGPT Kitaplık görsellerini istediğin adette, tek tıkla Çöp Kutusu'na taşır: "en eski 500 görsel" ya da "şu tarihten eski hepsi" gibi.
 
-*ChatGPT's library has a storage limit but no "select all". This Chrome extension moves your library images to Trash in bulk. The interface is in Turkish.*
+*Move your ChatGPT library images to Trash in bulk: all of them, the oldest N, or everything before a date. The panel is available in Turkish and English.*
 
 <p align="center"><img src="docs/panel.png" alt="Eklentinin paneli: görselleri tara, tarih seç, çöpe taşı" width="332"></p>
 
 > OpenAI ile bağlantısı yoktur, resmi değildir. ChatGPT'nin belgelenmemiş iç API'sini kullanır, OpenAI değiştirirse çalışmayı bırakabilir. Kullanım sorumluluğu sana aittir.
+
+## ChatGPT'de zaten toplu silme yok mu?
+
+Var, ama sınırlı. ChatGPT'de görselleri tek tek veya Shift ile aralık seçerek işaretleyebilirsin. **Tümü** sekmesinin liste görünümünde başlığın üstüne gelince çıkan bir **Tümünü seç** kutusu da var, ama sadece o an yüklenmiş satırları seçiyor (önce 20, kaydırdıkça artıyor) ve görsel dışındaki dosyaları da listeliyor.
+
+Birkaç görsel silmek için ChatGPT'nin kendisi yeterli. Bu eklenti binlerce görsel içindir:
+
+- Kaydırmadan tüm görselleri tarar.
+- Kaç görsel silineceğini yazabilirsin, en eskilerden başlar.
+- Tarihe göre silebilirsin.
+- Sadece görsellere dokunur.
 
 ## Kurulum
 
@@ -18,8 +29,11 @@ ChatGPT artık depolama sınırı uyguluyor ama Kitaplık'ta "tümünü seç" yo
 
 1. `chatgpt.com/library` sayfasını aç (eklentiyi kurmadan önce açıksa yenile), sağ alttaki **Toplu sil** düğmesine bas.
 2. **Görselleri tara**.
-3. İstersen bir tarih seç, sadece ondan eski görseller silinir. Boş bırakırsan hepsi silinir.
-4. Kırmızı düğmeye iki kez bas (ikincisi onay).
+3. **Tümü**'nü ya da **Belirli adet**'i seç. Örneğin 500 yazarsan en eski 500 görsel silinir.
+4. İstersen tarih de seç, sadece ondan eski görseller hesaba katılır.
+5. Kırmızı düğmeye iki kez bas (ikincisi onay).
+
+Dili panelin üstünden değiştirebilirsin (Türkçe, English).
 
 ## Silinince ne olur
 

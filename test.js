@@ -1,5 +1,5 @@
 const assert = require('node:assert');
-const { listImages, selectItems, trashItems, formatSize } = require('./content.js');
+const { STRINGS, listImages, selectItems, trashItems, formatSize } = require('./content.js');
 
 const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), { status, headers });
 const item = (n, extra = {}) => ({
@@ -31,6 +31,17 @@ function mockFetch(handler) {
   assert.deepStrictEqual(selectItems(mixed, '').map((i) => i.id), ['lib1']);
   assert.strictEqual(selectItems(mixed, '2026-06-15').length, 0);
   assert.strictEqual(selectItems(mixed, '2026-06-17').length, 1);
+
+  // A limit keeps the newest images; bad limits select nothing rather than everything.
+  const dated = [item(1, { record_creation_time: '2026-03-01T00:00:00Z' }), item(2, { record_creation_time: '2026-01-01T00:00:00Z' }), item(3, { record_creation_time: '2026-02-01T00:00:00Z' })];
+  assert.deepStrictEqual(selectItems(dated, '', 2).map((i) => i.id), ['lib2', 'lib3']);
+  assert.strictEqual(selectItems(dated, '', 500).length, 3);
+  assert.strictEqual(selectItems(dated, '').length, 3);
+  assert.strictEqual(selectItems(dated, '', 0).length, 0);
+  assert.deepStrictEqual(selectItems(dated, '2026-02-15', 1).map((i) => i.id), ['lib2']);
+
+  // Every language has every string.
+  assert.deepStrictEqual(Object.keys(STRINGS.en), Object.keys(STRINGS.tr));
 
   // Batches of 25 (server maximum) with exactly the request shape ChatGPT's own UI sends.
   const many = Array.from({ length: 120 }, (_, n) => item(n));

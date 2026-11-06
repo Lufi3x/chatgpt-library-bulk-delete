@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Bulk Delete for ChatGPT Library (Unofficial)",
-  "version": "1.0.0",
-  "description": "ChatGPT Kitaplık görsellerini toplu olarak Çöp Kutusu'na taşır. Resmi değildir.",
+  "version": "1.1.0",
+  "description": "Move your ChatGPT library images to Trash in bulk. Unofficial.",
   "content_scripts": [
     {
       "matches": [
